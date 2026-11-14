@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>M Store | Tienda de Ropa</title>
+  <title>M Store | Tienda de Ropa y Zapatos</title>
   <style>
     /* =========================================
        COLORES Y ESTILOS DE TU MARCA
@@ -206,12 +206,28 @@
       flex-grow: 1;
     }
 
+    .product-meta-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.3rem;
+      gap: 6px;
+    }
+
     .product-category {
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-muted);
-      margin-bottom: 0.25rem;
+    }
+
+    .stock-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 2px 8px;
+      border-radius: 50px;
     }
 
     .product-title {
@@ -221,21 +237,35 @@
     }
 
     .product-price {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 800;
       margin-bottom: 0.9rem;
     }
 
     /* SELECTOR DE TALLAS */
-    .size-selector {
+    .size-row {
       display: flex;
-      gap: 6px;
+      align-items: center;
+      gap: 8px;
       margin-bottom: 1rem;
     }
 
+    .size-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .size-selector {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
     .size-btn {
-      width: 34px;
+      min-width: 34px;
       height: 34px;
+      padding: 0 8px;
       border: 1px solid var(--border-color);
       background: #fff;
       border-radius: 6px;
@@ -413,6 +443,8 @@
       opacity: 0;
       transition: all 0.3s ease;
       z-index: 300;
+      text-align: center;
+      max-width: 90%;
     }
 
     .toast.show {
@@ -442,9 +474,9 @@
   <!-- INDICACIONES DE COMPRA -->
   <section class="info-banner">
     <h1>¿Cómo hacer tu pedido?</h1>
-    <p>Selecciona tus prendas favoritas, elige tu talla y añádelas al carrito. Al finalizar, el carrito te llevará directamente a nuestro WhatsApp con la lista completa de tus productos.</p>
+    <p>Selecciona tus productos favoritos, elige tu talla y añádelos al carrito. Al finalizar, el carrito te llevará directamente a nuestro WhatsApp con la lista completa de tus productos.</p>
     <div class="steps-bar">
-      <div class="step-pill"><strong>1.</strong> Elige prenda y talla</div>
+      <div class="step-pill"><strong>1.</strong> Elige producto y talla</div>
       <div class="step-pill"><strong>2.</strong> Añade al carrito</div>
       <div class="step-pill"><strong>3.</strong> Envía tu lista directo a WhatsApp</div>
     </div>
@@ -454,6 +486,7 @@
   <main class="catalog-container" id="catalogo">
     <div class="filters" id="filter-buttons">
       <button class="filter-btn active" onclick="filtrarCategoria('Todos', this)">Todos</button>
+      <button class="filter-btn" onclick="filtrarCategoria('Zapatos', this)">Zapatos</button>
       <button class="filter-btn" onclick="filtrarCategoria('Camisetas', this)">Camisetas</button>
       <button class="filter-btn" onclick="filtrarCategoria('Pantalones', this)">Pantalones</button>
       <button class="filter-btn" onclick="filtrarCategoria('Chaquetas', this)">Chaquetas</button>
@@ -487,7 +520,7 @@
     </div>
   </aside>
 
-  <div class="toast" id="toast">Prenda agregada al carrito</div>
+  <div class="toast" id="toast">Producto agregado al carrito</div>
 
   <footer>
     <p>&copy; 2026 M Store. Envíos a todo el país.</p>
@@ -504,11 +537,59 @@
     };
 
     /* ==============================================================
-       2. LISTA DE PRODUCTOS
+       2. LISTA DE PRODUCTOS (ZAPATOS Y ROPA)
     ============================================================== */
     const PRODUCTOS = [
+      // SECCIÓN ZAPATOS
       {
-        id: 1,
+        id: "ZV001",
+        nombre: "Zapatos ZV001",
+        categoria: "Zapatos",
+        precio: 10.00,
+        tallas: ["41"],
+        stock: 1,
+        imagen: "ZV001.jpeg"
+      },
+      {
+        id: "ZB002",
+        nombre: "Zapatos ZB002",
+        categoria: "Zapatos",
+        precio: 10.00,
+        tallas: ["41"],
+        stock: 2,
+        imagen: "ZB002.jpeg"
+      },
+      {
+        id: "ZR003",
+        nombre: "Zapatos ZR003",
+        categoria: "Zapatos",
+        precio: 10.00,
+        tallas: ["41"],
+        stock: 1,
+        imagen: "ZR003.jpeg"
+      },
+      {
+        id: "ZR004",
+        nombre: "Zapatos ZR004",
+        categoria: "Zapatos",
+        precio: 10.00,
+        tallas: ["41"],
+        stock: 1,
+        imagen: "ZR004.jpeg"
+      },
+      {
+        id: "ZC005",
+        nombre: "Zapatos ZC005",
+        categoria: "Zapatos",
+        precio: 10.00,
+        tallas: ["41"],
+        stock: 1,
+        imagen: "ZC005.jpeg"
+      },
+
+      // SECCIÓN ROPA
+      {
+        id: "R001",
         nombre: "Camiseta Oversize Essential",
         categoria: "Camisetas",
         precio: 22.00,
@@ -516,7 +597,7 @@
         imagen: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"
       },
       {
-        id: 2,
+        id: "R002",
         nombre: "Pantalón Cargo Urbano",
         categoria: "Pantalones",
         precio: 38.00,
@@ -524,7 +605,7 @@
         imagen: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80"
       },
       {
-        id: 3,
+        id: "R003",
         nombre: "Chaqueta Denim Vintage",
         categoria: "Chaquetas",
         precio: 49.00,
@@ -532,7 +613,7 @@
         imagen: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80"
       },
       {
-        id: 4,
+        id: "R004",
         nombre: "Camiseta Gráfica Minimal",
         categoria: "Camisetas",
         precio: 24.50,
@@ -558,29 +639,46 @@
         ? PRODUCTOS
         : PRODUCTOS.filter(p => p.categoria === categoriaActual);
 
-      grid.innerHTML = filtrados.map(prod => `
-        <article class="product-card">
-          <div class="product-img-wrap">
-            <img src="${prod.imagen}" alt="${prod.nombre}" loading="lazy" />
-          </div>
-          <div class="product-info">
-            <span class="product-category">${prod.categoria}</span>
-            <h2 class="product-title">${prod.nombre}</h2>
-            <div class="product-price">${CONFIG.moneda}${prod.precio.toFixed(2)}</div>
-            <div class="size-selector">
-              ${prod.tallas.map(talla => `
-                <button
-                  class="size-btn ${tallasSeleccionadas[prod.id] === talla ? 'selected' : ''}"
-                  onclick="seleccionarTalla(${prod.id}, '${talla}')"
-                >${talla}</button>
-              `).join("")}
+      grid.innerHTML = filtrados.map(prod => {
+        const etiquetaStock = prod.stock !== undefined
+          ? `<span class="stock-badge">${prod.stock === 1 ? "1 unidad restante" : prod.stock + " unidades restantes"}</span>`
+          : "";
+
+        return `
+          <article class="product-card">
+            <div class="product-img-wrap">
+              <img
+                src="${prod.imagen}"
+                alt="${prod.nombre}"
+                loading="lazy"
+                onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src=this.src.replace('.jpeg','.jpg');}"
+              />
             </div>
-            <button class="add-btn" onclick="agregarAlCarrito(${prod.id})">
-              Agregar al carrito
-            </button>
-          </div>
-        </article>
-      `).join("");
+            <div class="product-info">
+              <div class="product-meta-top">
+                <span class="product-category">${prod.categoria}</span>
+                ${etiquetaStock}
+              </div>
+              <h2 class="product-title">${prod.nombre}</h2>
+              <div class="product-price">${CONFIG.moneda}${prod.precio.toFixed(2)}</div>
+              <div class="size-row">
+                <span class="size-label">Talla:</span>
+                <div class="size-selector">
+                  ${prod.tallas.map(talla => `
+                    <button
+                      class="size-btn ${tallasSeleccionadas[prod.id] === talla ? 'selected' : ''}"
+                      onclick="seleccionarTalla('${prod.id}', '${talla}')"
+                    >${talla}</button>
+                  `).join("")}
+                </div>
+              </div>
+              <button class="add-btn" onclick="agregarAlCarrito('${prod.id}')">
+                Agregar al carrito
+              </button>
+            </div>
+          </article>
+        `;
+      }).join("");
     }
 
     function seleccionarTalla(productoId, talla) {
@@ -599,6 +697,12 @@
       const producto = PRODUCTOS.find(p => p.id === productoId);
       const talla = tallasSeleccionadas[productoId];
       const existente = carrito.find(item => item.id === productoId && item.talla === talla);
+      const cantidadActual = existente ? existente.cantidad : 0;
+
+      if (producto.stock !== undefined && cantidadActual >= producto.stock) {
+        mostrarToast(`Stock máximo alcanzado (${producto.stock} disponible)`);
+        return;
+      }
 
       if (existente) {
         existente.cantidad += 1;
@@ -608,7 +712,8 @@
           nombre: producto.nombre,
           precio: producto.precio,
           talla: talla,
-          cantidad: 1
+          cantidad: 1,
+          stock: producto.stock
         });
       }
 
@@ -617,8 +722,14 @@
     }
 
     function cambiarCantidad(index, delta) {
-      carrito[index].cantidad += delta;
-      if (carrito[index].cantidad <= 0) {
+      const item = carrito[index];
+      if (delta > 0 && item.stock !== undefined && item.cantidad >= item.stock) {
+        mostrarToast(`Solo quedan ${item.stock} unidad(es) de este producto`);
+        return;
+      }
+
+      item.cantidad += delta;
+      if (item.cantidad <= 0) {
         carrito.splice(index, 1);
       }
       actualizarCarritoUI();
@@ -669,7 +780,7 @@
 
     function enviarPedidoWhatsApp() {
       if (carrito.length === 0) {
-        alert("Agrega al menos una prenda al carrito antes de pedir.");
+        alert("Agrega al menos un producto al carrito antes de pedir.");
         return;
       }
 
