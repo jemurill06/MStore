@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVA STUDIO | Tienda de Ropa</title>
+  <title>M Store | Tienda de Ropa</title>
   <style>
     /* =========================================
        COLORES Y ESTILOS DE TU MARCA
-       (Edita estos valores para cambiar colores)
     ========================================= */
     :root {
       --bg-color: #fafafa;
       --surface-color: #ffffff;
       --text-main: #111111;
       --text-muted: #666666;
-      --accent-color: #111111;      /* Color principal de botones */
+      --accent-color: #111111;
       --accent-hover: #333333;
       --whatsapp-color: #25d366;
       --whatsapp-hover: #1ebe5d;
@@ -50,10 +49,9 @@
     }
 
     .brand-logo {
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      letter-spacing: 1.5px;
       text-decoration: none;
       color: var(--text-main);
     }
@@ -85,48 +83,54 @@
       border-radius: 50px;
     }
 
-    /* BANNER PRINCIPAL */
-    .hero {
+    /* INDICACIONES DE COMPRA AL INICIO */
+    .info-banner {
       background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
       color: #fff;
       text-align: center;
-      padding: 4.5rem 1.5rem;
+      padding: 2.6rem 1.5rem;
     }
 
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
+    .info-banner h1 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
       font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem;
     }
 
-    .hero p {
-      color: #d4d4d8;
-      max-width: 540px;
-      margin: 0 auto 1.8rem;
-      font-size: 1.05rem;
+    .info-banner p {
+      color: #e4e4e7;
+      max-width: 620px;
+      margin: 0 auto 1.4rem;
+      font-size: 1rem;
     }
 
-    .hero-btn {
-      display: inline-block;
-      background: #fff;
-      color: #111;
-      padding: 0.85rem 1.8rem;
+    .steps-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .step-pill {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 0.5rem 1rem;
       border-radius: 50px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: transform 0.2s;
+      font-size: 0.88rem;
+      color: #fff;
     }
 
-    .hero-btn:hover {
-      transform: translateY(-2px);
+    .step-pill strong {
+      color: var(--whatsapp-color);
     }
 
     /* FILTROS DE CATEGORÍA */
     .catalog-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2.5rem 5% 4rem;
+      padding: 2.2rem 5% 4rem;
     }
 
     .filters {
@@ -429,17 +433,21 @@
 
   <!-- ENCABEZADO -->
   <header>
-    <a href="#" class="brand-logo" id="store-name">NOVA STUDIO</a>
+    <a href="#" class="brand-logo" id="store-name">M Store</a>
     <button class="cart-trigger" onclick="toggleCart()">
       Carrito <span class="cart-badge" id="cart-count">0</span>
     </button>
   </header>
 
-  <!-- PORTADA -->
-  <section class="hero">
-    <h1>Nueva Colección 2026</h1>
-    <p>Prendas esenciales diseñadas para destacar todos los días. Elige tus tallas y realiza tu pedido directo por WhatsApp.</p>
-    <a href="#catalogo" class="hero-btn">Explorar Catálogo</a>
+  <!-- INDICACIONES DE COMPRA -->
+  <section class="info-banner">
+    <h1>¿Cómo hacer tu pedido?</h1>
+    <p>Selecciona tus prendas favoritas, elige tu talla y añádelas al carrito. Al finalizar, el carrito te llevará directamente a nuestro WhatsApp con la lista completa de tus productos.</p>
+    <div class="steps-bar">
+      <div class="step-pill"><strong>1.</strong> Elige prenda y talla</div>
+      <div class="step-pill"><strong>2.</strong> Añade al carrito</div>
+      <div class="step-pill"><strong>3.</strong> Envía tu lista directo a WhatsApp</div>
+    </div>
   </section>
 
   <!-- CATÁLOGO -->
@@ -482,25 +490,21 @@
   <div class="toast" id="toast">Prenda agregada al carrito</div>
 
   <footer>
-    <p>&copy; 2026 NOVA STUDIO. Envíos a todo el país.</p>
+    <p>&copy; 2026 M Store. Envíos a todo el país.</p>
   </footer>
 
   <script>
     /* ==============================================================
-       1. CONFIGURACIÓN DE TU TIENDA (EDITA ESTA SECCIÓN)
+       1. CONFIGURACIÓN DE TU TIENDA (EDITA TU NÚMERO AQUÍ)
     ============================================================== */
     const CONFIG = {
-      nombreTienda: "NOVA STUDIO",
-      // Escribe tu número con código de país, sin el símbolo "+" ni espacios.
-      // Ejemplo Ecuador: "593991234567" | México: "5215512345678" | Colombia: "573001234567"
+      nombreTienda: "M Store",
       whatsappNumero: "593999999999",
       moneda: "$"
     };
 
     /* ==============================================================
-       2. LISTA DE PRODUCTOS (AGREGA O EDITA TUS PRENDAS AQUÍ)
-       Cuando subas tus fotos a GitHub en una carpeta llamada "img",
-       cambia la ruta de imagen por ejemplo a: "img/camiseta-negra.jpg"
+       2. LISTA DE PRODUCTOS
     ============================================================== */
     const PRODUCTOS = [
       {
@@ -538,7 +542,7 @@
     ];
 
     /* ==============================================================
-       3. LÓGICA DE LA TIENDA (NO NECESITAS MODIFICAR ESTO)
+       3. LÓGICA DE LA TIENDA
     ============================================================== */
     document.getElementById("store-name").textContent = CONFIG.nombreTienda;
 
