@@ -182,6 +182,7 @@
     }
 
     .product-img-wrap {
+      position: relative;
       width: 100%;
       aspect-ratio: 3 / 4;
       background: #f0f0f0;
@@ -199,6 +200,19 @@
       transform: scale(1.04);
     }
 
+    .code-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(17, 17, 17, 0.85);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+
     .product-info {
       padding: 1.1rem;
       display: flex;
@@ -206,70 +220,64 @@
       flex-grow: 1;
     }
 
-    .product-meta-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.3rem;
-      gap: 6px;
-    }
-
     .product-category {
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-muted);
-    }
-
-    .stock-badge {
-      font-size: 0.74rem;
-      font-weight: 700;
-      background: #fef3c7;
-      color: #92400e;
-      padding: 2px 8px;
-      border-radius: 50px;
+      margin-bottom: 0.25rem;
     }
 
     .product-title {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 700;
       margin-bottom: 0.35rem;
+    }
+
+    .price-stock-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.85rem;
+      gap: 8px;
     }
 
     .product-price {
       font-size: 1.15rem;
       font-weight: 800;
-      margin-bottom: 0.9rem;
+    }
+
+    .stock-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #b45309;
+      background: #fef3c7;
+      padding: 3px 8px;
+      border-radius: 6px;
     }
 
     /* SELECTOR DE TALLAS */
-    .size-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 1rem;
-    }
-
     .size-label {
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
+      margin-bottom: 0.35rem;
       font-weight: 600;
     }
 
     .size-selector {
       display: flex;
       gap: 6px;
-      flex-wrap: wrap;
+      margin-bottom: 1rem;
     }
 
     .size-btn {
-      min-width: 34px;
+      min-width: 36px;
       height: 34px;
       padding: 0 8px;
       border: 1px solid var(--border-color);
       background: #fff;
       border-radius: 6px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.15s;
@@ -363,7 +371,7 @@
     }
 
     .cart-item-details h4 {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       margin-bottom: 2px;
     }
 
@@ -444,7 +452,6 @@
       transition: all 0.3s ease;
       z-index: 300;
       text-align: center;
-      max-width: 90%;
     }
 
     .toast.show {
@@ -528,68 +535,78 @@
 
   <script>
     /* ==============================================================
-       1. CONFIGURACIÓN DE TU TIENDA (EDITA TU NÚMERO AQUÍ)
+       1. CONFIGURACIÓN DE TU TIENDA
     ============================================================== */
     const CONFIG = {
       nombreTienda: "M Store",
-      whatsappNumero: "593999999999",
+      whatsappNumero: "593997605472",
       moneda: "$"
     };
 
     /* ==============================================================
-       2. LISTA DE PRODUCTOS (ZAPATOS Y ROPA)
+       2. LISTA DE PRODUCTOS
     ============================================================== */
     const PRODUCTOS = [
-      // SECCIÓN ZAPATOS
+      // SECCIÓN DE ZAPATOS
       {
-        id: "ZV001",
-        nombre: "Zapatos ZV001",
+        id: 101,
+        codigo: "ZV001",
+        nombre: "Zapatos Deportivo de Hombre con Suela Amortiguadora",
         categoria: "Zapatos",
         precio: 10.00,
         tallas: ["41"],
         stock: 1,
-        imagen: "ZV001.jpeg"
+        imagen: "ZV001.jpeg",
+        imagenBase: "ZV001"
       },
       {
-        id: "ZB002",
-        nombre: "Zapatos ZB002",
+        id: 102,
+        codigo: "ZB002",
+        nombre: "Zapatos Deportivos Informales Ligeros",
         categoria: "Zapatos",
         precio: 10.00,
         tallas: ["41"],
         stock: 2,
-        imagen: "ZB002.jpeg"
+        imagen: "ZB002.jpeg",
+        imagenBase: "ZB002"
       },
       {
-        id: "ZR003",
-        nombre: "Zapatos ZR003",
+        id: 103,
+        codigo: "ZR003",
+        nombre: "Zapatos Deportivo de Hombre con Suela Amortiguadora",
         categoria: "Zapatos",
         precio: 10.00,
         tallas: ["41"],
         stock: 1,
-        imagen: "ZR003.jpeg"
+        imagen: "ZR003.jpeg",
+        imagenBase: "ZR003"
       },
       {
-        id: "ZR004",
-        nombre: "Zapatos ZR004",
+        id: 104,
+        codigo: "ZR004",
+        nombre: "Zapatos Deportivo de Hombre con Suela Amortiguadora",
         categoria: "Zapatos",
         precio: 10.00,
         tallas: ["41"],
         stock: 1,
-        imagen: "ZR004.jpeg"
+        imagen: "ZR004.jpeg",
+        imagenBase: "ZR004"
       },
       {
-        id: "ZC005",
-        nombre: "Zapatos ZC005",
+        id: 105,
+        codigo: "ZC005",
+        nombre: "Zapatos Deportivos Informales Ligeros",
         categoria: "Zapatos",
         precio: 10.00,
         tallas: ["41"],
         stock: 1,
-        imagen: "ZC005.jpeg"
+        imagen: "ZC005.jpeg",
+        imagenBase: "ZC005"
       },
 
-      // SECCIÓN ROPA
+      // SECCIÓN DE ROPA (EJEMPLOS)
       {
-        id: "R001",
+        id: 1,
         nombre: "Camiseta Oversize Essential",
         categoria: "Camisetas",
         precio: 22.00,
@@ -597,7 +614,7 @@
         imagen: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"
       },
       {
-        id: "R002",
+        id: 2,
         nombre: "Pantalón Cargo Urbano",
         categoria: "Pantalones",
         precio: 38.00,
@@ -605,7 +622,7 @@
         imagen: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80"
       },
       {
-        id: "R003",
+        id: 3,
         nombre: "Chaqueta Denim Vintage",
         categoria: "Chaquetas",
         precio: 49.00,
@@ -613,7 +630,7 @@
         imagen: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80"
       },
       {
-        id: "R004",
+        id: 4,
         nombre: "Camiseta Gráfica Minimal",
         categoria: "Camisetas",
         precio: 24.50,
@@ -633,6 +650,17 @@
     let carrito = [];
     let categoriaActual = "Todos";
 
+    // Respaldo automático si la imagen en GitHub termina en .jpg, .JPEG o .JPG
+    function probarExtensionImagen(img, baseName) {
+      if (!baseName) return;
+      const extensiones = [".jpg", ".JPEG", ".JPG"];
+      const intento = parseInt(img.dataset.intento || "0", 10);
+      if (intento < extensiones.length) {
+        img.dataset.intento = intento + 1;
+        img.src = baseName + extensiones[intento];
+      }
+    }
+
     function renderizarProductos() {
       const grid = document.getElementById("products-grid");
       const filtrados = categoriaActual === "Todos"
@@ -640,39 +668,41 @@
         : PRODUCTOS.filter(p => p.categoria === categoriaActual);
 
       grid.innerHTML = filtrados.map(prod => {
-        const etiquetaStock = prod.stock !== undefined
-          ? `<span class="stock-badge">${prod.stock === 1 ? "1 unidad restante" : prod.stock + " unidades restantes"}</span>`
+        const stockTexto = prod.stock
+          ? `<span class="stock-tag">${prod.stock} ${prod.stock === 1 ? "unidad restante" : "unidades restantes"}</span>`
+          : "";
+        const codigoBadge = prod.codigo
+          ? `<span class="code-badge">${prod.codigo}</span>`
           : "";
 
         return `
           <article class="product-card">
             <div class="product-img-wrap">
+              ${codigoBadge}
               <img
                 src="${prod.imagen}"
                 alt="${prod.nombre}"
                 loading="lazy"
-                onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src=this.src.replace('.jpeg','.jpg');}"
+                onerror="probarExtensionImagen(this, '${prod.imagenBase || ""}')"
               />
             </div>
             <div class="product-info">
-              <div class="product-meta-top">
-                <span class="product-category">${prod.categoria}</span>
-                ${etiquetaStock}
-              </div>
+              <span class="product-category">${prod.categoria}</span>
               <h2 class="product-title">${prod.nombre}</h2>
-              <div class="product-price">${CONFIG.moneda}${prod.precio.toFixed(2)}</div>
-              <div class="size-row">
-                <span class="size-label">Talla:</span>
-                <div class="size-selector">
-                  ${prod.tallas.map(talla => `
-                    <button
-                      class="size-btn ${tallasSeleccionadas[prod.id] === talla ? 'selected' : ''}"
-                      onclick="seleccionarTalla('${prod.id}', '${talla}')"
-                    >${talla}</button>
-                  `).join("")}
-                </div>
+              <div class="price-stock-row">
+                <span class="product-price">${CONFIG.moneda}${prod.precio.toFixed(2)}</span>
+                ${stockTexto}
               </div>
-              <button class="add-btn" onclick="agregarAlCarrito('${prod.id}')">
+              <div class="size-label">Talla:</div>
+              <div class="size-selector">
+                ${prod.tallas.map(talla => `
+                  <button
+                    class="size-btn ${tallasSeleccionadas[prod.id] === talla ? 'selected' : ''}"
+                    onclick="seleccionarTalla(${prod.id}, '${talla}')"
+                  >${talla}</button>
+                `).join("")}
+              </div>
+              <button class="add-btn" onclick="agregarAlCarrito(${prod.id})">
                 Agregar al carrito
               </button>
             </div>
@@ -699,8 +729,8 @@
       const existente = carrito.find(item => item.id === productoId && item.talla === talla);
       const cantidadActual = existente ? existente.cantidad : 0;
 
-      if (producto.stock !== undefined && cantidadActual >= producto.stock) {
-        mostrarToast(`Stock máximo alcanzado (${producto.stock} disponible)`);
+      if (producto.stock && cantidadActual >= producto.stock) {
+        mostrarToast(`Solo ${producto.stock === 1 ? "queda 1 unidad" : "quedan " + producto.stock + " unidades"} disponibles`);
         return;
       }
 
@@ -709,22 +739,24 @@
       } else {
         carrito.push({
           id: producto.id,
+          codigo: producto.codigo || "",
           nombre: producto.nombre,
           precio: producto.precio,
           talla: talla,
-          cantidad: 1,
-          stock: producto.stock
+          stock: producto.stock || null,
+          cantidad: 1
         });
       }
 
       actualizarCarritoUI();
-      mostrarToast(`Agregado: ${producto.nombre} (Talla ${talla})`);
+      const etiqueta = producto.codigo ? `[${producto.codigo}] ${producto.nombre}` : producto.nombre;
+      mostrarToast(`Agregado: ${etiqueta} (Talla ${talla})`);
     }
 
     function cambiarCantidad(index, delta) {
       const item = carrito[index];
-      if (delta > 0 && item.stock !== undefined && item.cantidad >= item.stock) {
-        mostrarToast(`Solo quedan ${item.stock} unidad(es) de este producto`);
+      if (delta > 0 && item.stock && item.cantidad + delta > item.stock) {
+        mostrarToast(`Stock máximo: ${item.stock} ${item.stock === 1 ? "unidad" : "unidades"}`);
         return;
       }
 
@@ -754,7 +786,7 @@
       contenedor.innerHTML = carrito.map((item, idx) => `
         <div class="cart-item">
           <div class="cart-item-details">
-            <h4>${item.nombre}</h4>
+            <h4>${item.codigo ? `[${item.codigo}] ` : ""}${item.nombre}</h4>
             <div class="cart-item-meta">Talla: <strong>${item.talla}</strong> · ${CONFIG.moneda}${item.precio.toFixed(2)} c/u</div>
           </div>
           <div class="qty-controls">
@@ -775,7 +807,7 @@
       const toast = document.getElementById("toast");
       toast.textContent = texto;
       toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2200);
+      setTimeout(() => toast.classList.remove("show"), 2400);
     }
 
     function enviarPedidoWhatsApp() {
@@ -791,7 +823,8 @@
 
       carrito.forEach(item => {
         const subtotal = (item.precio * item.cantidad).toFixed(2);
-        mensaje += `• ${item.cantidad}x ${item.nombre} (Talla ${item.talla}) - ${CONFIG.moneda}${subtotal}\n`;
+        const prefijo = item.codigo ? `[${item.codigo}] ` : "";
+        mensaje += `• ${item.cantidad}x ${prefijo}${item.nombre} (Talla ${item.talla}) - ${CONFIG.moneda}${subtotal}\n`;
       });
 
       const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0).toFixed(2);
