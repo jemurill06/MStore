@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVA STUDIO | Tienda de Ropa</title>
+  <style>
+    /* =========================================
+       COLORES Y ESTILOS DE TU MARCA
+       (Edita estos valores para cambiar colores)
+    ========================================= */
+    :root {
+      --bg-color: #fafafa;
+      --surface-color: #ffffff;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --accent-color: #111111;      /* Color principal de botones */
+      --accent-hover: #333333;
+      --whatsapp-color: #25d366;
+      --whatsapp-hover: #1ebe5d;
+      --border-color: #e5e5e5;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* BARRA SUPERIOR */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .cart-trigger {
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .cart-trigger:hover {
+      background: var(--accent-hover);
+    }
+
+    .cart-badge {
+      background: #fff;
+      color: var(--text-main);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 50px;
+    }
+
+    /* BANNER PRINCIPAL */
+    .hero {
+      background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+      color: #fff;
+      text-align: center;
+      padding: 4.5rem 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero p {
+      color: #d4d4d8;
+      max-width: 540px;
+      margin: 0 auto 1.8rem;
+      font-size: 1.05rem;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background: #fff;
+      color: #111;
+      padding: 0.85rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* FILTROS DE CATEGORÍA */
+    .catalog-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 5% 4rem;
+    }
+
+    .filters {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2.2rem;
+    }
+
+    .filter-btn {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--accent-color);
+      color: #fff;
+      border-color: var(--accent-color);
+    }
+
+    /* CUADRÍCULA DE PRODUCTOS */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .product-card {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.25s;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    .product-img-wrap {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background: #f0f0f0;
+      overflow: hidden;
+    }
+
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .product-info {
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .product-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .product-price {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 0.9rem;
+    }
+
+    /* SELECTOR DE TALLAS */
+    .size-selector {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .size-btn {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .size-btn.selected {
+      background: var(--accent-color);
+      color: #fff;
+      border-color: var(--accent-color);
+    }
+
+    .add-btn {
+      margin-top: auto;
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .add-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    /* CARRITO LATERAL (DRAWER) */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 200;
+      display: none;
+    }
+
+    .overlay.open {
+      display: block;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      background: #fff;
+      z-index: 210;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .cart-drawer.open {
+      right: 0;
+    }
+
+    .cart-header {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .cart-items {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 1.2rem 1.5rem;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      gap: 10px;
+    }
+
+    .cart-item-details h4 {
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+
+    .cart-item-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-btn {
+      width: 26px;
+      height: 26px;
+      border: 1px solid var(--border-color);
+      background: #f9f9f9;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .cart-footer {
+      padding: 1.2rem 1.5rem;
+      border-top: 1px solid var(--border-color);
+      background: #fafafa;
+    }
+
+    .customer-input {
+      width: 100%;
+      padding: 0.65rem;
+      margin-bottom: 0.65rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin: 0.8rem 0 1rem;
+    }
+
+    .whatsapp-btn {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--whatsapp-color);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .whatsapp-btn:hover {
+      background: var(--whatsapp-hover);
+    }
+
+    /* NOTIFICACIÓN FLOTANTE */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #111;
+      color: #fff;
+      padding: 0.75rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 300;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header>
+    <a href="#" class="brand-logo" id="store-name">NOVA STUDIO</a>
+    <button class="cart-trigger" onclick="toggleCart()">
+      Carrito <span class="cart-badge" id="cart-count">0</span>
+    </button>
+  </header>
+
+  <!-- PORTADA -->
+  <section class="hero">
+    <h1>Nueva Colección 2026</h1>
+    <p>Prendas esenciales diseñadas para destacar todos los días. Elige tus tallas y realiza tu pedido directo por WhatsApp.</p>
+    <a href="#catalogo" class="hero-btn">Explorar Catálogo</a>
+  </section>
+
+  <!-- CATÁLOGO -->
+  <main class="catalog-container" id="catalogo">
+    <div class="filters" id="filter-buttons">
+      <button class="filter-btn active" onclick="filtrarCategoria('Todos', this)">Todos</button>
+      <button class="filter-btn" onclick="filtrarCategoria('Camisetas', this)">Camisetas</button>
+      <button class="filter-btn" onclick="filtrarCategoria('Pantalones', this)">Pantalones</button>
+      <button class="filter-btn" onclick="filtrarCategoria('Chaquetas', this)">Chaquetas</button>
+    </div>
+
+    <div class="products-grid" id="products-grid"></div>
+  </main>
+
+  <!-- FONDO OSCURO Y CARRITO LATERAL -->
+  <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <h3>Tu Pedido</h3>
+      <button class="close-cart" onclick="toggleCart()">&times;</button>
+    </div>
+
+    <div class="cart-items" id="cart-items">
+      <p style="color: #777; text-align: center; margin-top: 2rem;">Tu carrito está vacío.</p>
+    </div>
+
+    <div class="cart-footer">
+      <input type="text" id="customer-name" class="customer-input" placeholder="Tu nombre (opcional)" />
+      <input type="text" id="customer-city" class="customer-input" placeholder="Ciudad o dirección de envío" />
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cart-total">$0.00</span>
+      </div>
+      <button class="whatsapp-btn" onclick="enviarPedidoWhatsApp()">
+        Pedir por WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast">Prenda agregada al carrito</div>
+
+  <footer>
+    <p>&copy; 2026 NOVA STUDIO. Envíos a todo el país.</p>
+  </footer>
+
+  <script>
+    /* ==============================================================
+       1. CONFIGURACIÓN DE TU TIENDA (EDITA ESTA SECCIÓN)
+    ============================================================== */
+    const CONFIG = {
+      nombreTienda: "NOVA STUDIO",
+      // Escribe tu número con código de país, sin el símbolo "+" ni espacios.
+      // Ejemplo Ecuador: "593991234567" | México: "5215512345678" | Colombia: "573001234567"
+      whatsappNumero: "593999999999",
+      moneda: "$"
+    };
+
+    /* ==============================================================
+       2. LISTA DE PRODUCTOS (AGREGA O EDITA TUS PRENDAS AQUÍ)
+       Cuando subas tus fotos a GitHub en una carpeta llamada "img",
+       cambia la ruta de imagen por ejemplo a: "img/camiseta-negra.jpg"
+    ============================================================== */
+    const PRODUCTOS = [
+      {
+        id: 1,
+        nombre: "Camiseta Oversize Essential",
+        categoria: "Camisetas",
+        precio: 22.00,
+        tallas: ["S", "M", "L", "XL"],
+        imagen: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 2,
+        nombre: "Pantalón Cargo Urbano",
+        categoria: "Pantalones",
+        precio: 38.00,
+        tallas: ["28", "30", "32", "34"],
+        imagen: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 3,
+        nombre: "Chaqueta Denim Vintage",
+        categoria: "Chaquetas",
+        precio: 49.00,
+        tallas: ["S", "M", "L"],
+        imagen: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 4,
+        nombre: "Camiseta Gráfica Minimal",
+        categoria: "Camisetas",
+        precio: 24.50,
+        tallas: ["S", "M", "L", "XL"],
+        imagen: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80"
+      }
+    ];
+
+    /* ==============================================================
+       3. LÓGICA DE LA TIENDA (NO NECESITAS MODIFICAR ESTO)
+    ============================================================== */
+    document.getElementById("store-name").textContent = CONFIG.nombreTienda;
+
+    let tallasSeleccionadas = {};
+    PRODUCTOS.forEach(p => { tallasSeleccionadas[p.id] = p.tallas[0]; });
+
+    let carrito = [];
+    let categoriaActual = "Todos";
+
+    function renderizarProductos() {
+      const grid = document.getElementById("products-grid");
+      const filtrados = categoriaActual === "Todos"
+        ? PRODUCTOS
+        : PRODUCTOS.filter(p => p.categoria === categoriaActual);
+
+      grid.innerHTML = filtrados.map(prod => `
+        <article class="product-card">
+          <div class="product-img-wrap">
+            <img src="${prod.imagen}" alt="${prod.nombre}" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <span class="product-category">${prod.categoria}</span>
+            <h2 class="product-title">${prod.nombre}</h2>
+            <div class="product-price">${CONFIG.moneda}${prod.precio.toFixed(2)}</div>
+            <div class="size-selector">
+              ${prod.tallas.map(talla => `
+                <button
+                  class="size-btn ${tallasSeleccionadas[prod.id] === talla ? 'selected' : ''}"
+                  onclick="seleccionarTalla(${prod.id}, '${talla}')"
+                >${talla}</button>
+              `).join("")}
+            </div>
+            <button class="add-btn" onclick="agregarAlCarrito(${prod.id})">
+              Agregar al carrito
+            </button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function seleccionarTalla(productoId, talla) {
+      tallasSeleccionadas[productoId] = talla;
+      renderizarProductos();
+    }
+
+    function filtrarCategoria(categoria, boton) {
+      categoriaActual = categoria;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      boton.classList.add("active");
+      renderizarProductos();
+    }
+
+    function agregarAlCarrito(productoId) {
+      const producto = PRODUCTOS.find(p => p.id === productoId);
+      const talla = tallasSeleccionadas[productoId];
+      const existente = carrito.find(item => item.id === productoId && item.talla === talla);
+
+      if (existente) {
+        existente.cantidad += 1;
+      } else {
+        carrito.push({
+          id: producto.id,
+          nombre: producto.nombre,
+          precio: producto.precio,
+          talla: talla,
+          cantidad: 1
+        });
+      }
+
+      actualizarCarritoUI();
+      mostrarToast(`Agregado: ${producto.nombre} (Talla ${talla})`);
+    }
+
+    function cambiarCantidad(index, delta) {
+      carrito[index].cantidad += delta;
+      if (carrito[index].cantidad <= 0) {
+        carrito.splice(index, 1);
+      }
+      actualizarCarritoUI();
+    }
+
+    function actualizarCarritoUI() {
+      const contenedor = document.getElementById("cart-items");
+      const contador = document.getElementById("cart-count");
+      const totalEl = document.getElementById("cart-total");
+
+      const totalUnidades = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+      const totalPrecio = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+
+      contador.textContent = totalUnidades;
+      totalEl.textContent = `${CONFIG.moneda}${totalPrecio.toFixed(2)}`;
+
+      if (carrito.length === 0) {
+        contenedor.innerHTML = `<p style="color: #777; text-align: center; margin-top: 2rem;">Tu carrito está vacío.</p>`;
+        return;
+      }
+
+      contenedor.innerHTML = carrito.map((item, idx) => `
+        <div class="cart-item">
+          <div class="cart-item-details">
+            <h4>${item.nombre}</h4>
+            <div class="cart-item-meta">Talla: <strong>${item.talla}</strong> · ${CONFIG.moneda}${item.precio.toFixed(2)} c/u</div>
+          </div>
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="cambiarCantidad(${idx}, -1)">-</button>
+            <span>${item.cantidad}</span>
+            <button class="qty-btn" onclick="cambiarCantidad(${idx}, 1)">+</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function toggleCart() {
+      document.getElementById("cart-drawer").classList.toggle("open");
+      document.getElementById("overlay").classList.toggle("open");
+    }
+
+    function mostrarToast(texto) {
+      const toast = document.getElementById("toast");
+      toast.textContent = texto;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    function enviarPedidoWhatsApp() {
+      if (carrito.length === 0) {
+        alert("Agrega al menos una prenda al carrito antes de pedir.");
+        return;
+      }
+
+      const nombreCliente = document.getElementById("customer-name").value.trim();
+      const ciudadCliente = document.getElementById("customer-city").value.trim();
+
+      let mensaje = `Hola *${CONFIG.nombreTienda}*, quiero realizar el siguiente pedido:\n\n`;
+
+      carrito.forEach(item => {
+        const subtotal = (item.precio * item.cantidad).toFixed(2);
+        mensaje += `• ${item.cantidad}x ${item.nombre} (Talla ${item.talla}) - ${CONFIG.moneda}${subtotal}\n`;
+      });
+
+      const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0).toFixed(2);
+      mensaje += `\n*Total a pagar: ${CONFIG.moneda}${total}*`;
+
+      if (nombreCliente) mensaje += `\nNombre: ${nombreCliente}`;
+      if (ciudadCliente) mensaje += `\nEnvío a: ${ciudadCliente}`;
+
+      const url = `https://wa.me/${CONFIG.whatsappNumero}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, "_blank");
+    }
+
+    renderizarProductos();
+  </script>
+</body>
+</html>
