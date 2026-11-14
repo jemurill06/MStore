@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>M Store | Tienda de Ropa y Zapatos</title>
+  <title>M Store | Guayaquil - Ecuador</title>
   <style>
     /* =========================================
        COLORES Y ESTILOS DE TU MARCA
@@ -91,6 +91,19 @@
       padding: 2.6rem 1.5rem;
     }
 
+    .location-badge {
+      display: inline-block;
+      background: rgba(37, 211, 102, 0.16);
+      border: 1px solid var(--whatsapp-color);
+      color: #86efac;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 0.9rem;
+      letter-spacing: 0.3px;
+    }
+
     .info-banner h1 {
       font-size: clamp(1.5rem, 4vw, 2.2rem);
       font-weight: 800;
@@ -99,7 +112,7 @@
 
     .info-banner p {
       color: #e4e4e7;
-      max-width: 620px;
+      max-width: 640px;
       margin: 0 auto 1.4rem;
       font-size: 1rem;
     }
@@ -402,6 +415,13 @@
       background: #fafafa;
     }
 
+    .shipping-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
     .customer-input {
       width: 100%;
       padding: 0.65rem;
@@ -480,8 +500,9 @@
 
   <!-- INDICACIONES DE COMPRA -->
   <section class="info-banner">
+    <div class="location-badge">Entregas y envíos únicamente en Guayaquil</div>
     <h1>¿Cómo hacer tu pedido?</h1>
-    <p>Selecciona tus productos favoritos, elige tu talla y añádelos al carrito. Al finalizar, el carrito te llevará directamente a nuestro WhatsApp con la lista completa de tus productos.</p>
+    <p>Selecciona tus productos favoritos, elige tu talla y añádelos al carrito. Al finalizar, el carrito te llevará directamente a nuestro WhatsApp con la lista completa de tus productos. <strong>Servicio disponible solo para Guayaquil.</strong></p>
     <div class="steps-bar">
       <div class="step-pill"><strong>1.</strong> Elige producto y talla</div>
       <div class="step-pill"><strong>2.</strong> Añade al carrito</div>
@@ -494,9 +515,6 @@
     <div class="filters" id="filter-buttons">
       <button class="filter-btn active" onclick="filtrarCategoria('Todos', this)">Todos</button>
       <button class="filter-btn" onclick="filtrarCategoria('Zapatos', this)">Zapatos</button>
-      <button class="filter-btn" onclick="filtrarCategoria('Camisetas', this)">Camisetas</button>
-      <button class="filter-btn" onclick="filtrarCategoria('Pantalones', this)">Pantalones</button>
-      <button class="filter-btn" onclick="filtrarCategoria('Chaquetas', this)">Chaquetas</button>
     </div>
 
     <div class="products-grid" id="products-grid"></div>
@@ -515,8 +533,9 @@
     </div>
 
     <div class="cart-footer">
+      <div class="shipping-note">* Envíos disponibles únicamente en Guayaquil</div>
       <input type="text" id="customer-name" class="customer-input" placeholder="Tu nombre (opcional)" />
-      <input type="text" id="customer-city" class="customer-input" placeholder="Ciudad o dirección de envío" />
+      <input type="text" id="customer-city" class="customer-input" placeholder="Dirección de envío Guayaquil" />
       <div class="cart-total">
         <span>Total:</span>
         <span id="cart-total">$0.00</span>
@@ -530,7 +549,7 @@
   <div class="toast" id="toast">Producto agregado al carrito</div>
 
   <footer>
-    <p>&copy; 2026 M Store. Envíos a todo el país.</p>
+    <p>&copy; 2026 M Store. Guayaquil-Ecuador</p>
   </footer>
 
   <script>
@@ -547,7 +566,6 @@
        2. LISTA DE PRODUCTOS
     ============================================================== */
     const PRODUCTOS = [
-      // SECCIÓN DE ZAPATOS
       {
         id: 101,
         codigo: "ZV001",
@@ -657,40 +675,6 @@
         stock: 1,
         imagen: "ZN010.jpeg",
         imagenBase: "ZN010"
-      },
-
-      // SECCIÓN DE ROPA (EJEMPLOS)
-      {
-        id: 1,
-        nombre: "Camiseta Oversize Essential",
-        categoria: "Camisetas",
-        precio: 22.00,
-        tallas: ["S", "M", "L", "XL"],
-        imagen: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        id: 2,
-        nombre: "Pantalón Cargo Urbano",
-        categoria: "Pantalones",
-        precio: 38.00,
-        tallas: ["28", "30", "32", "34"],
-        imagen: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        id: 3,
-        nombre: "Chaqueta Denim Vintage",
-        categoria: "Chaquetas",
-        precio: 49.00,
-        tallas: ["S", "M", "L"],
-        imagen: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        id: 4,
-        nombre: "Camiseta Gráfica Minimal",
-        categoria: "Camisetas",
-        precio: 24.50,
-        tallas: ["S", "M", "L", "XL"],
-        imagen: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80"
       }
     ];
 
@@ -872,7 +856,7 @@
       }
 
       const nombreCliente = document.getElementById("customer-name").value.trim();
-      const ciudadCliente = document.getElementById("customer-city").value.trim();
+      const direccionCliente = document.getElementById("customer-city").value.trim();
 
       let mensaje = `Hola *${CONFIG.nombreTienda}*, quiero realizar el siguiente pedido:\n\n`;
 
@@ -886,7 +870,7 @@
       mensaje += `\n*Total a pagar: ${CONFIG.moneda}${total}*`;
 
       if (nombreCliente) mensaje += `\nNombre: ${nombreCliente}`;
-      if (ciudadCliente) mensaje += `\nEnvío a: ${ciudadCliente}`;
+      if (direccionCliente) mensaje += `\nDirección de envío (Guayaquil): ${direccionCliente}`;
 
       const url = `https://wa.me/${CONFIG.whatsappNumero}?text=${encodeURIComponent(mensaje)}`;
       window.open(url, "_blank");
